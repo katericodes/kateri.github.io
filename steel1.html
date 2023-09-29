@@ -1,0 +1,664 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Steve's Car Showroom</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+                                <header id="header">
+                                    <a href="index.html" class="logo"><strong>Kateri Arano</strong> Portfolio</a>
+                                    <ul class="icons">
+                                        <li><a href="https://www.linkedin.com/in/kbarano/" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+                                        <li><a href="https://github.com/katericodes" class="icon brands fa-github-alt"><span class="label">GitHub</span></a></li>
+                                    </ul>
+                                </header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>Steve's Car Showroom</h1>
+									</header>
+
+									<p>The following SQL challenge is provided by <a href="https://www.steeldata.org.uk/sql1.html">Steel Data and Matthew Steel.</a></p>
+                                    <div>
+                                    <p>The following SQL concepts were used to analyze the given data:</p>
+                                    <ul> 
+                                        <li>AGGREGATE FUNCTIONS (COUNT(), SUM())</li>
+                                        <li>GROUP BY</li>
+                                        <li>ORDER BY</li>
+                                        <li>JOINS</li>
+                                        <li>LIMIT</li>
+                                    </ul>
+
+									<hr class="major" />
+
+									<h2>The Challenge</h2>
+                                    <blockquote>Steve runs a top-end car showroom but his data analyst has just quit and left him without his crucial insights.
+                                    Can you analyse the following data to provide him with all the answers he requires?
+                                    </blockquote>
+                                    <h3>Schema</h3>
+                                    <p>The challenge consists of three tables: cars, salespersons, and sales.</p>
+                                    <pre><code>CREATE TABLE cars (
+car_id INT PRIMARY KEY,
+make VARCHAR(50),
+type VARCHAR(50),
+style VARCHAR(50),
+cost_$ INT
+);
+--------------------
+INSERT INTO cars (car_id, make, type, style, cost_$)
+VALUES (1, 'Honda', 'Civic', 'Sedan', 30000),
+(2, 'Toyota', 'Corolla', 'Hatchback', 25000),
+(3, 'Ford', 'Explorer', 'SUV', 40000),
+(4, 'Chevrolet', 'Camaro', 'Coupe', 36000),
+(5, 'BMW', 'X5', 'SUV', 55000),
+(6, 'Audi', 'A4', 'Sedan', 48000),
+(7, 'Mercedes', 'C-Class', 'Coupe', 60000),
+(8, 'Nissan', 'Altima', 'Sedan', 26000);
+--------------------
+CREATE TABLE salespersons (
+salesman_id INT PRIMARY KEY,
+name VARCHAR(50),
+age INT,
+city VARCHAR(50)
+);
+--------------------
+INSERT INTO salespersons (salesman_id, name, age, city)
+VALUES (1, 'John Smith', 28, 'New York'),
+(2, 'Emily Wong', 35, 'San Fran'),
+(3, 'Tom Lee', 42, 'Seattle'),
+(4, 'Lucy Chen', 31, 'LA');
+--------------------
+CREATE TABLE sales (
+sale_id INT PRIMARY KEY,
+car_id INT,
+salesman_id INT,
+purchase_date DATE,
+FOREIGN KEY (car_id) REFERENCES cars(car_id),
+FOREIGN KEY (salesman_id) REFERENCES salespersons(salesman_id)
+);
+--------------------
+INSERT INTO sales (sale_id, car_id, salesman_id, purchase_date)
+VALUES (1, 1, 1, '2021-01-01'),
+(2, 3, 3, '2021-02-03'),
+(3, 2, 2, '2021-02-10'),
+(4, 5, 4, '2021-03-01'),
+(5, 8, 1, '2021-04-02'),
+(6, 2, 1, '2021-05-05'),
+(7, 4, 2, '2021-06-07'),
+(8, 5, 3, '2021-07-09'),
+(9, 2, 4, '2022-01-01'),
+(10, 1, 3, '2022-02-03'),
+(11, 8, 2, '2022-02-10'),
+(12, 7, 2, '2022-03-01'),
+(13, 5, 3, '2022-04-02'),
+(14, 3, 1, '2022-05-05'),
+(15, 5, 4, '2022-06-07'),
+(16, 1, 2, '2022-07-09'),
+(17, 2, 3, '2023-01-01'),
+(18, 6, 3, '2023-02-03'),
+(19, 7, 1, '2023-02-10'),
+(20, 4, 4, '2023-03-01');
+                                        </code></pre>
+									<hr class="major" />
+                                    <h2> Q1. What are the details of all cars purchased in the year 2022?</h2>
+                                    <pre><code>select *
+from sales
+    join cars
+    on sales.car_id = cars.car_id
+where purchase_date like "2022%";</code></pre>
+<table>
+    <tr>
+        <th>sale_id</th>
+        <th>car_id</th>
+        <th>salesman_id</th>
+        <th>purchase_date</th>
+        <th>car_id</th>
+        <th>make</th>
+        <th>type</th>
+        <th>style</th>
+        <th>cost_$</th>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>2</td>
+        <td>4</td>
+        <td>2022-01-01</td>
+        <td>2</td>
+        <td>Toyota</td>
+        <td>Corolla</td>
+        <td>Hatchback</td>
+        <td>25000</td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>1</td>
+        <td>3</td>
+        <td>2022-02-03</td>
+        <td>1</td>
+        <td>Honda</td>
+        <td>Civic</td>
+        <td>Sedan</td>
+        <td>30000</td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td>8</td>
+        <td>2</td>
+        <td>2022-02-10</td>
+        <td>8</td>
+        <td>Nissan</td>
+        <td>Altima</td>
+        <td>Sedan</td>
+        <td>26000</td>
+    </tr>
+    <tr>
+        <td>12</td>
+        <td>7</td>
+        <td>2</td>
+        <td>2022-03-01</td>
+        <td>7</td>
+        <td>Mercedes</td>
+        <td>C-Class</td>
+        <td>Coupe</td>
+        <td>60000</td>
+    </tr>
+    <tr>
+        <td>13</td>
+        <td>5</td>
+        <td>3</td>
+        <td>2022-04-02</td>
+        <td>5</td>
+        <td>BMW</td>
+        <td>X5</td>
+        <td>SUV</td>
+        <td>55000</td>
+    </tr>
+    <tr>
+        <td>14</td>
+        <td>3</td>
+        <td>1</td>
+        <td>2022-05-05</td>
+        <td>3</td>
+        <td>Ford</td>
+        <td>Explorer</td>
+        <td>SUV</td>
+        <td>40000</td>
+    </tr>
+    <tr>
+        <td>15</td>
+        <td>5</td>
+        <td>4</td>
+        <td>2022-06-07</td>
+        <td>5</td>
+        <td>BMW</td>
+        <td>X5</td>
+        <td>SUV</td>
+        <td>55000</td>
+    </tr>
+    <tr>
+        <td>16</td>
+        <td>1</td>
+        <td>2</td>
+        <td>2022-07-09</td>
+        <td>1</td>
+        <td>Honda</td>
+        <td>Civic</td>
+        <td>Sedan</td>
+        <td>30000</td>
+    </tr>
+</table>
+                                    <h2> Q2. What is the total number of cars sold by each salesperson? </h2>
+                                    <pre><code>select sales.salesman_id as "id",
+    salespersons.name as "name",
+    count(salespersons.salesman_id) as "total cars sold"
+from sales
+    join salespersons on sales.salesman_id = salespersons.salesman_id
+group by salespersons.salesman_id;</code></pre>
+<table>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>total cars sold</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>John Smith</td>
+        <td>5</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Emily Wong</td>
+        <td>5</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Tom Lee</td>
+        <td>6</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Lucy Chen</td>
+        <td>4</td>
+    </tr>
+</table>
+                                    <h2> Q3. What is the total revenue generated by each salesperson? </h2>
+                                    <pre><code>select sales.salesman_id as "id", salespersons.name as "name", sum(cost_$) as "total revenue"
+from sales
+    join salespersons
+    on sales.salesman_id = salespersons.salesman_id
+    join cars
+    on sales.car_id = cars.car_id
+group by salespersons.salesman_id;</code></pre>
+<table>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>total revenue</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>John Smith</td>
+        <td>181000</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Emily Wong</td>
+        <td>177000</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Tom Lee</td>
+        <td>253000</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Lucy Chen</td>
+        <td>171000</td>
+    </tr>
+</table>
+                                    <h2> Q4. What are the details of the cars sold by each salesperson? </h2>
+                                    <pre><code>select salespersons.name as "sold by",
+    sales.purchase_date as "date of purchase",
+    concat(make," ",type) as "car",
+    style,
+    cost_$
+from sales
+    join salespersons
+    on sales.salesman_id = salespersons.salesman_id
+    join cars
+    on sales.car_id = cars.car_id
+order by salespersons.salesman_id;</code></pre>
+<table>
+    <tr>
+        <th>sold by</th>
+        <th>date of purchase</th>
+        <th>car</th>
+        <th>style</th>
+        <th>cost_$</th>
+    </tr>
+    <tr>
+        <td>John Smith</td>
+        <td>2021-01-01</td>
+        <td>Honda Civic</td>
+        <td>Sedan</td>
+        <td>30000</td>
+    </tr>
+    <tr>
+        <td>John Smith</td>
+        <td>2023-02-10</td>
+        <td>Mercedes C-Class</td>
+        <td>Coupe</td>
+        <td>60000</td>
+    </tr>
+    <tr>
+        <td>John Smith</td>
+        <td>2022-05-05</td>
+        <td>Ford Explorer</td>
+        <td>SUV</td>
+        <td>40000</td>
+    </tr>
+    <tr>
+        <td>John Smith</td>
+        <td>2021-05-05</td>
+        <td>Toyota Corolla</td>
+        <td>Hatchback</td>
+        <td>25000</td>
+    </tr>
+    <tr>
+        <td>John Smith</td>
+        <td>2021-04-02</td>
+        <td>Nissan Altima</td>
+        <td>Sedan</td>
+        <td>26000</td>
+    </tr>
+    <tr>
+        <td>Emily Wong</td>
+        <td>2022-03-01</td>
+        <td>Mercedes C-Class</td>
+        <td>Coupe</td>
+        <td>60000</td>
+    </tr>
+    <tr>
+        <td>Emily Wong</td>
+        <td>2022-02-10</td>
+        <td>Nissan Altima</td>
+        <td>Sedan</td>
+        <td>26000</td>
+    </tr>
+    <tr>
+        <td>Emily Wong</td>
+        <td>2021-06-07</td>
+        <td>Chevrolet Camaro</td>
+        <td>Coupe</td>
+        <td>36000</td>
+    </tr>
+    <tr>
+        <td>Emily Wong</td>
+        <td>2021-02-10</td>
+        <td>Toyota Corolla</td>
+        <td>Hatchback</td>
+        <td>25000</td>
+    </tr>
+    <tr>
+        <td>Emily Wong</td>
+        <td>2022-07-09</td>
+        <td>Honda Civic</td>
+        <td>Sedan</td>
+        <td>30000</td>
+    </tr>
+    <tr>
+        <td>Tom Lee</td>
+        <td>2023-02-03</td>
+        <td>Audi A4</td>
+        <td>Sedan</td>
+        <td>48000</td>
+    </tr>
+    <tr>
+        <td>Tom Lee</td>
+        <td>2023-01-01</td>
+        <td>Toyota Corolla</td>
+        <td>Hatchback</td>
+        <td>25000</td>
+    </tr>
+    <tr>
+        <td>Tom Lee</td>
+        <td>2022-04-02</td>
+        <td>BMW X5</td>
+        <td>SUV</td>
+        <td>55000</td>
+    </tr>
+    <tr>
+        <td>Tom Lee</td>
+        <td>2022-02-03</td>
+        <td>Honda Civic</td>
+        <td>Sedan</td>
+        <td>30000</td>
+    </tr>
+    <tr>
+        <td>Tom Lee</td>
+        <td>2021-07-09</td>
+        <td>BMW X5</td>
+        <td>SUV</td>
+        <td>55000</td>
+    </tr>
+    <tr>
+        <td>Tom Lee</td>
+        <td>2021-02-03</td>
+        <td>Ford Explorer</td>
+        <td>SUV</td>
+        <td>40000</td>
+    </tr>
+    <tr>
+        <td>Lucy Chen</td>
+        <td>2021-03-01</td>
+        <td>BMW X5</td>
+        <td>SUV</td>
+        <td>55000</td>
+    </tr>
+    <tr>
+        <td>Lucy Chen</td>
+        <td>2023-03-01</td>
+        <td>Chevrolet Camaro</td>
+        <td>Coupe</td>
+        <td>36000</td>
+    </tr>
+    <tr>
+        <td>Lucy Chen</td>
+        <td>2022-06-07</td>
+        <td>BMW X5</td>
+        <td>SUV</td>
+        <td>55000</td>
+    </tr>
+    <tr>
+        <td>Lucy Chen</td>
+        <td>2022-01-01</td>
+        <td>Toyota Corolla</td>
+        <td>Hatchback</td>
+        <td>25000</td>
+    </tr>
+</table>
+                                    <h2> Q5. What is the total revenue generated by each car type? </h2>
+                                    <pre><code>select cars.type,
+    sum(cost_$) as "total revenue"
+from sales
+    join cars
+    on sales.car_id = cars.car_id
+group by cars.type;</code></pre>
+<table>
+    <tr>
+        <th>type</th>
+        <th>total revenue</th>
+    </tr>
+    <tr>
+        <td>A4</td>
+        <td>48000</td>
+    </tr>
+    <tr>
+        <td>Altima</td>
+        <td>52000</td>
+    </tr>
+    <tr>
+        <td>C-Class</td>
+        <td>120000</td>
+    </tr>
+    <tr>
+        <td>Camaro</td>
+        <td>72000</td>
+    </tr>
+    <tr>
+        <td>Civic</td>
+        <td>90000</td>
+    </tr>
+    <tr>
+        <td>Corolla</td>
+        <td>100000</td>
+    </tr>
+    <tr>
+        <td>Explorer</td>
+        <td>80000</td>
+    </tr>
+    <tr>
+        <td>X5</td>
+        <td>220000</td>
+    </tr>
+</table>
+                                    <h2> Q6. What are the details of the cars sold in the year 2021 by salesperson 'Emily Wong'? </h2>
+                                    <pre><code>select purchase_date, 
+    make,
+    type,
+    style,
+    cost_$
+from sales
+    join salespersons
+    on sales.salesman_id = salespersons.salesman_id
+    join cars
+    on sales.car_id = cars.car_id
+where purchase_date like "2021%"
+    AND salespersons.name = "Emily Wong";</code></pre>
+    <table>
+        <tr>
+            <th>purchase_date</th>
+            <th>make</th>
+            <th>type</th>
+            <th>style</th>
+            <th>cost_$</th>
+        </tr>
+        <tr>
+            <td>2021-02-10</td>
+            <td>Toyota</td>
+            <td>Corolla</td>
+            <td>Hatchback</td>
+            <td>25000</td>
+        </tr>
+        <tr>
+            <td>2021-06-07</td>
+            <td>Chevrolet</td>
+            <td>Camaro</td>
+            <td>Coupe</td>
+            <td>36000</td>
+        </tr>
+    </table>
+                                    <h2> Q7. What is the total revenue generated by the sales of hatchback cars? </h2>
+                                    <pre><code>select style, sum(cost_$) as "total revenue"
+from sales
+    join cars
+    on sales.car_id = cars.car_id
+where style = "Hatchback"
+group by style;</code></pre>
+<table>
+    <tr>
+        <th>style</th>
+        <th>total revenue</th>
+    </tr>
+    <tr>
+        <td>Hatchback</td>
+        <td>100000</td>
+    </tr>
+</table>
+                                    <h2> Q8. What is the total revenue generated by the sales of SUV cars in the year 2022? </h2>
+                                    <pre><code>select style sum(cost_$) as "total revenue"
+from sales
+    join cars
+    on sales.car_id = cars.car_id
+where style = "SUV" and purchase_date like "2022%"
+group by style;</code></pre>
+<table>
+    <tr>
+        <th>style</th>
+        <th>total revenue</th>
+    </tr>
+    <tr>
+        <td>SUV</td>
+        <td>150000</td>
+    </tr>
+</table>
+                                    <h2> Q9. What is the name and city of the salesperson who sold the most number of cars in the year 2023? </h2>
+                                    <pre><code>select salespersons.name,
+    count(salespersons.name) as "total cars sold",
+    salespersons.city
+from sales
+    join salespersons
+    on sales.salesman_id = salespersons.salesman_id
+    join cars
+    on sales.car_id = cars.car_id
+where purchase_date like "2023%"
+group by salespersons.name, salespersons.city
+order by count(salespersons.name) desc
+limit 1;</code></pre>
+<table>
+    <tr>
+        <th>name</th>
+        <th>city</th>
+        <th>total cars sold</th>
+    </tr>
+    <tr>
+        <td>Tom Lee</td>
+        <td>Seattle</td>
+        <td>2</td>
+    </tr>
+</table>
+                                    <h2> Q10. What is the name and age of the salesperson who generated the highest revenue in the year 2022? </h2>
+                                    <pre><code>select salespersons.name,
+    sum(cars.cost_$) as "total revenue",
+    salespersons.age
+from sales
+    join salespersons
+    on sales.salesman_id = salespersons.salesman_id
+    join cars
+    on sales.car_id = cars.car_id
+where purchase_date like "2022%"
+group by salespersons.name, salespersons.age
+order by sum(cars.cost_$) desc
+limit 1;</code></pre>
+<table>
+    <tr>
+        <th>name</th>
+        <th>age</th>
+        <th>total revenue</th>
+    </tr>
+    <tr>
+        <td>Emily Wong</td>
+        <td>35</td>
+        <td>116000</td>
+    </tr>
+</table>
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Menu -->
+                            <nav id="menu">
+                                <header class="major">
+                                    <h2>Menu</h2>
+                                </header>
+                                <ul>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="generic.html">Generic</a></li>
+                                    <li><a href="elements.html">Elements</a></li>
+                                    <li><a href="#">cs336</a></li>
+                                    <li><a href="#">cs310</a></li>
+                                    <li><a href="murder-mystery.html">SQL Murder Mystery</a></li>
+                                    <li>
+                                        <span class="opener">Steel Data SQL Challenges</span>
+                                        <ul>
+                                            <li><a href="steel1.html">Steve's Car Showroom</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+
+						</div>
+					</div>
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

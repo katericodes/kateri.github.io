@@ -1,0 +1,373 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>SQL Murder Mystery</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+                            <header id="header">
+                                <a href="index.html" class="logo"><strong>Kateri Arano</strong> Portfolio</a>
+                                <ul class="icons">
+                                    <li><a href="https://www.linkedin.com/in/kbarano/" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+									<li><a href="https://github.com/katericodes" class="icon brands fa-github-alt"><span class="label">GitHub</span></a></li>
+                                </ul>
+                            </header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>SQL Murder Mystery</h1>
+									</header>
+
+									<p> The SQL Murder Mystery is a web-based SQL challenge designed by two MIT students, Joon Park and Cathy He. It can be found on <a href= "https://mystery.knightlab.com/">mystery.knightlab.com.</a></p>
+									<p>The following SQL concepts were used to solve the mystery:</p>
+                                    <ul> 
+                                        <li>LIKE and Wildcards (%)</li>
+										<li>IN</li>
+										<li>GROUP BY</li>
+                                        <li>ORDER BY</li>
+                                        <li>JOINS</li>
+                                        <li>LIMIT</li>
+                                    </ul>
+									<hr class="major" />
+
+									<h2>The Challenge</h2>
+									<p>A crime has taken place and the detective needs your help. The detective gave you the crime scene report, but you somehow lost it. You vaguely remember that the crime was a ​murder​ that occurred sometime on ​Jan.15, 2018​ and that it took place in ​SQL City​. Start by retrieving the corresponding crime scene report from the police department’s database.
+									</p>
+									<h3>The Schema</h3>
+									<span class="image main"><img src="https://mystery.knightlab.com/schema.png" alt="" /></span>
+									
+									
+									<hr class="major" />
+									<h2>Finding Witness Reports</h2>
+									<p>Based on the given challenge, we're looking for a crime report for a murder that happened on Jan. 15, 2018 in SQL City.</p>
+									<pre><code>select *
+from crime_scene_report
+where date is 20180115 and city is "SQL City" and type is "murder"</code></pre>
+<table>
+    <tr>
+        <th>date</th>
+        <th>type</th>
+        <th>description</th>
+        <th>city</th>
+    </tr>
+    <tr>
+        <td>20180115</td>
+        <td>murder</td>
+        <td>Security footage shows that there were 2 witnesses. The first witness lives at the last house on &quot;Northwestern Dr&quot;. The second witness, named Annabel, lives somewhere on &quot;Franklin Ave&quot;.</td>
+        <td>SQL City</td>
+    </tr>
+</table>
+									<p>Based on the report, we are looking for two witnesses.</p>
+									<h3>Witness 1</h3>
+									<pre><code>select *
+from person
+where address_street_name is "Northwestern Dr"
+order by address_number desc
+limit 1</code></pre>
+<table>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>license_id</th>
+        <th>address_number</th>
+        <th>address_street_name</th>
+        <th>ssn</th>
+    </tr>
+    <tr>
+        <td>14887</td>
+        <td>Morty Schapiro</td>
+        <td>118009</td>
+        <td>4919</td>
+        <td>Northwestern Dr</td>
+        <td>111564949</td>
+    </tr>
+</table>
+									<h3>Witness 2</h3>
+									<pre><code>select *
+from person
+where name like "Annabel %" and address_street_name is "Franklin Ave"</code></pre>
+<table>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>license_id</th>
+        <th>address_number</th>
+        <th>address_street_name</th>
+        <th>ssn</th>
+    </tr>
+    <tr>
+        <td>16371</td>
+        <td>Annabel Miller</td>
+        <td>490173</td>
+        <td>103</td>
+        <td>Franklin Ave</td>
+        <td>318771143</td>
+    </tr>
+</table>
+									<h3>Witness Reports</h3>
+									<pre><code>select person.id, person.name, interview.transcript
+from person join interview on person.id = interview.person_id
+where id in (14887, 16371)</code></pre>
+									<table>
+										<tr>
+											<th>id</th>
+											<th>name</th>
+											<th>transcript</th>
+										</tr>
+										<tr>
+											<td>14887</td>
+											<td>Morty Schapiro</td>
+											<td>I heard a gunshot and then saw a man run out. He had a "Get Fit Now Gym" bag. The membership number on the bag started with "48Z". Only gold members have those bags. The man got into a car with a plate that included "H42W".</td>
+										</tr>
+										<tr>
+											<td>16371</td>
+											<td>Annabel Miller</td>
+											<td>I saw the murder happen, and I recognized the killer from my gym when I was working out last week on January the 9th.</td>
+										</tr>
+									</table>
+									<p>From the witness reports, we are looking for a suspect who fits the following criteria:</p>
+									<ul>
+										<li>The suspect is a man.</li>
+										<li>The suspect is a member of "Get Fit Now Gym" with an ID that starts with "48Z."</li>
+										<li>The suspect is a "gold" member.</li>
+										<li>The suspect was in the gym on January 9th (2018).</li>
+										<li>The suspect drives a car with a license plate containging "H42W"</li>
+									</ul>
+									<h2>Searching for Suspects</h2>
+									<p>Based on the given clues, it should be enough to narrow down the suspects based on the gym membership ID, the check-in date, and the license plate.</p>
+									<pre><code>select get_fit_now_check_in.membership_id,
+	get_fit_now_check_in.check_in_date,
+	get_fit_now_member.person_id,
+	get_fit_now_member.name,
+	get_fit_now_member.membership_status
+from get_fit_now_check_in join get_fit_now_member on get_fit_now_check_in.membership_id = get_fit_now_member.id
+where check_in_date is 20180109 and membership_id like "48Z%" </code></pre>
+									<table>
+										<tr>
+											<th>membership_id</th>
+											<th>check_in_date</th>
+											<th>person_id</th>
+											<th>name</th>
+											<th>membership_status</th>
+										</tr>
+										<tr>
+											<td>48Z7A</td>
+											<td>20180109</td>
+											<td>28819</td>
+											<td>Joe Germuska</td>
+											<td>gold</td>
+										</tr>
+										<tr><td>48Z55</td>
+											<td>20180109</td>
+											<td>67318</td>
+											<td>Jeremy Bowers</td>
+											<td>gold</td>
+										</tr>
+									</table>
+									<p>Between Joe Germuska and Jeremy Bowers, we want to find someone whose license plate contains "H42W".</p>
+									<pre><code>select person.id,
+	person.name,
+	person.license_id,
+	drivers_license.plate_number
+from person join drivers_license on person.license_id = drivers_license.id
+where plate_number like "%H42W%" and person.id in (28819, 67318)</code></pre>
+									<table>
+										<tr>
+											<th>id</th>
+											<th>name</th>
+											<th>license_id</th>
+											<th>plate_number</th>
+										</tr>
+										<tr>
+											<td>67318</td>
+											<td>Jeremy Bowers</td>
+											<td>423327</td>
+											<td>0H42W2</td>
+										</tr>
+									</table>
+									<h2>Determining the Killer</h2>
+									<p>We narrowed down the suspects to Jeremy Bowers. We'll check if he's the killer by inserting his name into the provided query.</p>
+									<pre><code>INSERT INTO solution VALUES (1, 'Jeremy Bowers');
+SELECT value FROM solution;</code></pre>
+										<blockquote>Congrats, you found the murderer! But wait, there's more... If you think you're up for a challenge, try querying the interview transcript of the murderer to find the real villain behind this crime. If you feel especially confident in your SQL skills, try to complete this final step with no more than 2 queries. Use this same INSERT statement with your new suspect to check your answer.</blockquote>
+									<h2>Follow Up Challenge: Finding the Mastermind</h2>
+									<h3>The Suspect's Interview</h3>
+									<pre><code>select *
+from interview
+where person_id is 67318</code></pre>
+									<table>
+										<tr>
+											<th>person_id</th>
+											<th>transcript</th>
+										</tr>
+										<tr>
+											<td>67318</td>
+											<td>I was hired by a woman with a lot of money. I don't know her name but I know she's around 5'5" (65") or 5'7" (67"). She has red hair and she drives a Tesla Model S. I know that she attended the SQL Symphony Concert 3 times in December 2017.</td>
+										</tr>
+									</table>
+									<p>Based on the killer's statement, we are looking for a person that fits the following description.</p>
+									<ul>
+										<li>The mastermind is a woman with red hair.</li>
+										<li>The woman's height is between 5'5" (65") or 5'7" (67").</li>
+										<li>The woman drives a Tesla Model S</li>
+										<li>The woman attended the SQL Symphony 3 times in Decemeber 2017.</li>
+									</ul>
+									<h3>Query 1</h3>
+									<p>We'll start with a query that searches for the mastermind by their physical description and by the car they drive.</p>
+									<pre><code>select person.id,
+	person.name,
+	person.license_id,
+	person.ssn,
+	drivers_license.height,
+	drivers_license.hair_color,
+	drivers_license.car_make,
+	drivers_license.car_model
+from person join drivers_license on person.license_id = drivers_license.id
+where gender is "female"
+	and hair_color is "red"
+	and car_make is "Tesla"
+	and car_model is "Model S"
+	and height >= 65
+	and height <= 67</code></pre>
+									<table>
+										<tr>
+											<th>id</th>
+											<th>name</th>
+											<th>license_id</th>
+											<th>ssn</th>
+											<th>height</th>
+											<th>hair_color</th>
+											<th>car_make</th>
+											<th>car_model</th>
+										</tr>
+										<tr>
+											<td>78881</td>
+											<td>Red Korb</td>
+											<td>918773</td>
+											<td>961388910</td>
+											<td>65</td>
+											<td>red</td>
+											<td>Tesla</td>
+											<td>Model S</td>
+										</tr>
+										<tr>
+											<td>90700</td>
+											<td>Regina George</td>
+											<td>291182</td>
+											<td>337169072</td>
+											<td>66</td>
+											<td>red</td>
+											<td>Tesla</td>
+											<td>Model S</td>
+										</tr>
+										<tr>
+											<td>99716</td>
+											<td>Miranda Priestly</td>
+											<td>202298</td>
+											<td>987756388</td>
+											<td>66</td>
+											<td>red</td>
+											<td>Tesla</td>
+											<td>Model S</td>
+										</tr>
+									</table>
+									<h3>Query 2</h3>
+									<p>The next query is to see which of the three suspects attended the SQL Sympthony 3 times in Dec. 2017.</p>
+									<pre><code>select facebook_event_checkin.person_id,
+	person.name,
+	facebook_event_checkin.event_name,
+	facebook_event_checkin.date
+from facebook_event_checkin join person on facebook_event_checkin.person_id = person.id
+where event_name is "SQL Symphony Concert"
+	and date like "201712%"
+	and person_id in (78881, 90700, 99716)</code></pre>
+									<table>
+										<tr>
+											<th>person_id</th>
+											<th>name</th>
+											<th>event_name</th>
+											<th>date</th>
+										</tr>
+										<tr>
+											<td>99716</td>
+											<td>Miranda Priestly</td>
+											<td>SQL Sympthony Concert</td>
+											<td>20171206</td>
+										</tr>
+										<tr>
+											<td>99716</td>
+											<td>Miranda Priestly</td>
+											<td>SQL Sympthony Concert</td>
+											<td>20171212</td>
+										</tr>
+										<tr>
+											<td>99716</td>
+											<td>Miranda Priestly</td>
+											<td>SQL Sympthony Concert</td>
+											<td>20171229</td>
+										</tr>
+									</table>
+									<h3>Determining the Mastermind</h3>
+									<p>The above queries lead to Miranda Priestly being the mastermind. By checking her name in the provided query, we get the following:</p>
+									<pre><code>INSERT INTO solution VALUES (1, 'Miranda Priestly');
+SELECT value FROM solution;</code></pre>
+									<blockquote>Congrats, you found the brains behind the murder! Everyone in SQL City hails you as the greatest SQL detective of all time. Time to break out the champagne!</blockquote>
+								</section>
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Menu -->
+                            <nav id="menu">
+                                <header class="major">
+                                    <h2>Menu</h2>
+                                </header>
+                                <ul>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="generic.html">Generic</a></li>
+                                    <li><a href="elements.html">Elements</a></li>
+                                    <li><a href="#">cs336</a></li>
+                                    <li><a href="#">cs310</a></li>
+                                    <li><a href="murder-mystery.html">SQL Murder Mystery</a></li>
+                                    <li>
+                                        <span class="opener">Steel Data SQL Challenges</span>
+                                        <ul>
+                                            <li><a href="steel1.html">Steve's Car Showroom</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+
+						</div>
+					</div>
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
