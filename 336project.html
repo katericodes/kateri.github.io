@@ -34,11 +34,21 @@
 									<header class="main">
 										<h1>Auction Website</h1>
 									</header>
+                                    <div class="box">
+                                    <b>Contents</b>
+                                    <ul>
+                                        <li><a href="#context">Context and Objectives</a></li>
+                                        <li><a href="#approach">Approach</a></li>
+                                        <!-- <li><a href="#ack">Acknowledgments</a></li> -->
+                                        <li><a href="#er">Database Design and ER Diagram</a></li>
+                                        <li><a href="#sql">Highlighted SQL Queries</a></li>
+                                    </ul>
+                                    </div>
 
-                                    <h2>Context and Objectives</h2>
+                                    <h2 id="context">Context and Objectives</h2>
                                     <p>Auction websites are provide an online marketplace for users to sell and buy products with ease. In this project, my group and I were tasked to design and implement a relational database system to support the operations of an create an online auction site. Customers would have the ability to create accounts, login/logout, list items for sale, search for and buy items through bids, and create a wishlist for items not yet on sale.</p>
 
-                                    <h2>Approach</h2>
+                                    <h2 id="approach">Approach</h2>
                                     <p>For our auction website, we created an auction website for buying and selling electronics.</p>
                                     <p>The website was created using HTML, MySQL, and Javascript and hosted locally. HMTL was used for the user interface, MySQL was used for the database server, and Javascript was used for connectivity between the two. A starter code with example HTML and Javascript code was provided for students to focus more on the SQL database and queries.</p>
                                     <p>Within the group, I contributed to the following:</p> 
@@ -48,17 +58,17 @@
                                         <li>search queries related to browsing and search functionality.</li>
                                     </ul>
                                     
-                                    <h2>Acknowledgments</h2>
+                                    <h2 id="ack">Acknowledgments</h2>
                                     <p>This project was completed with a group for the CS336 Course taught at Rutgers University. Only a sample of the project with respect to my contributions is published to comply with Rutgers Academic Integrity.</p>
                                     
-                                    <h2>Database Design and Entity Relationship (ER) Diagram</h2>
+                                    <h2 id="er">Database Design and Entity Relationship (ER) Diagram</h2>
                                     <p> The auction website is for electronics that were further categorized into desktops, laptops, and tablets. These electronics had the following attributes: product ID, model, brand, operating system, screen size, and condition.</p>
                                     <p> Accounts are created with an account ID, email, login name, and password. There are two account types: admin and customer ("end users"). Only cutomers are allowed to create their accounts through the front end of the website; admin accounts are inserted directly into the database. Customer accounts are able to act as both the buyer and seller. Admin staff users have the ability to generate sales reports.</p>
                                     <p> To sell an item, the end user will need to submit the product's details and set the initial price, bid increment, and secret minimum of the auction. The "bid increment" is the amount to be added to the current bid for the next bid amount to be valid. The "secret minimum" indicates the amount that the seller is not willing to sell less than.</P>
                                     <p> When placing a bid, the end user will specify a "current bid amount" and an "upper bid limit", which is the maximum price they are willing to pay. If the upper bid limit is reached, the attribute for "upper limit reached" is used as a boolean value to alert the user.</p>
                                     <span class="image main"><img src="images/336 er diagram.png" alt="" /></span>
 
-                                    <h2>Highlighted SQL Queries</h2>
+                                    <h2 id="sql">Highlighted SQL Queries</h2>
                                     <div class="row">
                                         <div class="col-6 col-12-small">
                                             <h3>Customer Login</h3> 
