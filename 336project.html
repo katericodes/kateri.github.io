@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Auction Website</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+                                <header id="header">
+                                    <a href="index.html" class="logo"><strong>Kateri's </strong> Portfolio</a>
+                                    <ul class="icons">
+                                        <li><a href="https://www.linkedin.com/in/kbarano/" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+                                        <li><a href="https://github.com/katericodes" class="icon brands fa-github-alt"><span class="label">GitHub</span></a></li>
+                                    </ul>
+                                </header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>Auction Website</h1>
+									</header>
+
+                                    <h2>Context and Objectives</h2>
+                                    <p>Auction websites are provide an online marketplace for users to sell and buy products with ease. In this project, my group and I were tasked to design and implement a relational database system to support the operations of an create an online auction site. Customers would have the ability to create accounts, login/logout, list items for sale, search for and buy items through bids, and create a wishlist for items not yet on sale.</p>
+
+                                    <h2>Approach</h2>
+                                    <p>For our auction website, we created an auction website for electronics</p>
+                                    <p>The website was created using HTML, MySQL, and Javascript and hosted locally. HMTL was used for the user interface, MySQL was used for the database server, and Javascript was used for connectivity between the two. A starter code with example HTML and Javascript code was provided for students to focus more on the SQL database and queries.</p>
+                                    <p>Within the group, I contributed to the following:</p> 
+                                    <ul>
+                                        <li>design of the ER diagram and Relational Schema,</li>
+                                        <li>account creation and login/logout functionality, and</li>
+                                        <li>search queries related to browsing and search functionality.</li>
+                                    </ul>
+                                    
+                                    <h2>Acknowledgments</h2>
+                                    <p>This project was completed with a group for the CS336 Course taught at Rutgers University. Only a sample of the project with respect to my contributions is published to comply with Rutgers Academic Integrity.</p>
+                                    
+                                    <h2>Database Design and Entity Relationship (ER) Diagram</h2>
+                                    <p> The auction website is for electronics that were further categorized into desktops, laptops, and tablets. These electronics had the following attributes: product ID, model, brand, operating system, screen size, and condition.</p>
+                                    <p> Accounts are created with an account ID, email, login name, and password. There are two account types: admin and customer (or end users). Only cutomers are allowed to create their accounts through the front end of the website; admin accounts are inserted directly into the database. Customer accounts are able to act as both the buyer and seller if they choose. Admin staff users have the ability to generate sales reports.</p>
+                                    <span class="image main"><img src="images/336 er diagram.png" alt="" /></span>
+
+                                    <h2>Highlighted SQL Queries</h2>
+                                    <div class="row">
+                                        <div class="col-6 col-12-small">
+                                            <h3>Customer Login</h3> 
+                                            <p>The following query was used to check if a customer existed in the database. If the customer's credentials existed, they were able to login. If not, their login was invalid.</p>
+                                            <span class="image fit"><img src="images/336 login.png" alt="" /></span>
+                                        </div>
+                                        <div class="col-6 col-12-small">
+                                            <h3>Customer Account Creation</h3>
+                                            <p>The following allows the customer to create an account by inserting their entered credentials into the endUser table.</p>
+                                            <span class="image fit"><img src="images/336 create account.png" alt="" /></span>
+                                        </div>
+                                        <div class="col-6 col-12-small">
+                                            <h3>Browse All Auctions</h3>
+                                            <p>The following queries all auctions with product details that were listed within the database along. Using HTML and Javascript, the start date and close date were used to determine and indicate whether the auction was considered active or closed.</p>
+                                            <span class="image fit"><img src="images/336 browse all.png" alt="" /></span>
+                                        </div>
+                                        <div class="col-6 col-12-small">
+                                            <h3>Browse Specific Auction</h3>
+                                            <p>The following queries for a specific auction based on its ID.</p>
+                                            <span class="image fit"><img src="images/336 browse specific.png" alt="" /></span>
+                                        </div>
+                                        <div class="col-6 col-12-small">
+                                            <h3>Auction Bid History</h3>
+                                            <p>For the specific auction (based on ID), the following returns all the bids that were placed on the item. The items are returned in descending order based on the bid amount, so that when the auction is closed, the winner can be determined by which bid had the most money.</p>
+                                            <span class="image fit"><img src="images/336 bid history.png" alt="" /></span>
+                                        </div>
+                                        <div class="col-6 col-12-small">
+                                            <h3>Similar Products</h3>
+                                            <p>The following query finds auction listings within the previous month containing products with a similar brand or similar category to the product in the current auction listing. Javascript was used to manipulate the SQL query so that it returned a list of products with on only the same brand, only the same category, or both same brand and same category.</p>
+                                            <span class="image fit"><img src="images/336 similar items.png" alt="" /></span>
+                                        </div>
+                                        <div class="col-6 col-12-small">
+                                            <h3>Customer History</h3>
+                                            <p>For the specific customer (based on their ID), the first query returns all the auctions that the customer has created, and the second query returns all the auctions that the customer has placed a bid on.</p>
+                                            <span class="image fit"><img src="images/336 user history.png" alt="" /></span>
+                                        </div>
+                                        <div class="col-6 col-12-small">
+                                            <h3>Search by Attribute</h3>
+                                            <p>The following query allows for a customer to search for specified attribute using an inputed phrase. An HTML form is used to select which attribute to search for (such as model or brand), to input the phrase to search by, and to indicate whether results should be ordered ascending or descending.</p>
+                                            <span class="image fit"><img src="images/336 search by attribute.png" alt="" /></span>
+                                        </div>
+                                        <div class="col-6 col-12-small">
+                                            <h3>Search by Price</h3>
+                                            <p>The following query allows for a customer to search for an auction based on the product's initial price. An HTML form allows the customer to search by either a minimum price or a maximum price and to indicate if they want results ordered in ascending or descending order based on the price.</p>
+                                            <span class="image fit"><img src="images/336 search by price.png" alt="" /></span>
+                                        </div>
+                                        <div class="col-6 col-12-small">
+                                            <h3>Search by Screen Size</h3>
+                                            <p>The following query allows for a customer to search for an auction based on the product's screen size. An HTML form allows the customer to search by either a minimum or maximum maximum and to indicate if they want results ordered in ascending or descending order based on the size.</p>
+                                            <span class="image fit"><img src="images/336 search by screen size.png" alt="" />
+                                        </div>
+                                        <div class="col-6 col-12-small">
+                                            <h3>Search by Condition</h3>
+                                            <p>The following query allows for a customer to search for an auction based on the product's condition. An HTML form with a radio button is used to allow the user to select among the following conditions: Brand New, Like New, Good, and Used.</p>
+                                            <span class="image fit"><img src="images/336 search by condition.png" alt="" />
+                                        </div>
+                                        <div class="col-6 col-12-small">
+                                            <h3>Search by Category</h3>
+                                            <p>The following query allows for a customer to search for an auction based on whether the product is a Laptop, Tablet, or Desktop. An HTML form with a radio button is used to allow the user to select which category to search by.</p>
+                                            <span class="image fit"><img src="images/336 search by category.png" alt="" />
+                                        </div>
+                                        <div class="col-6 col-12-small">
+                                            <h3>Add to Wishlist</h3>
+                                            <p>If the customer is looking for a specific model that doesn't have an auction listing yet, they can add it to their wishlist with the following Insert statement.</p>
+                                            <span class="image fit"><img src="images/336 wishlist.png" alt="" />
+                                        </div>
+                                    </div>
+                            
+                            
+
+								</section>
+
+						</div>
+					</div>
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
