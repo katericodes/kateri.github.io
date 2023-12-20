@@ -35,24 +35,51 @@
 										<h1>Bike Buyers</h1>
 									</header>
 
-                                    <h2>Context and Objecetives </h2>
-                                    <p><i>(Description Placeholder)</i></p>
+                                    <h2>Context and Objectives</h2>
+                                    <p>Riding a bicycle to school or work can provide many health, financial, and environmental benefits. The goal of this project is to understand the demographics behind who is (and is not) buying bicycles.</p>
 
                                     <h2>Content</h2>
-                                    <p>The dataset used can be found <a href="https://github.com/AlexTheAnalyst/Excel-Tutorial/blob/main/Data%20Cleaning%20Excel%20Tutorial.xlsx">here.</a></p>
-                                    
-                                    <h2>Approach</h2>
+                                    <p>For this project, I will be using a dataset (found on <a href="https://github.com/AlexTheAnalyst/Excel-Tutorial/blob/main/Data%20Cleaning%20Excel%20Tutorial.xlsx">GitHub</a>) that contains 1026 rows of potential bicycle buyers described by the following attributes:</p>
                                     <ul>
-                                        <li>cleaning</li>
-                                        <li>pivot tables</li>
-                                        <li>data visualization</li>
-                                        <li>slicers</li>
-                                    </ul>
+										<li><b>ID:</b> unique identifier of the potential buyers</li>
+										<li><b>Marital Status:</b> whether the buyer is married or single</li>
+										<li><b>Gender:</b> whether the buyer identifies as male or female</li>
+										<li><b>Income:</b> in US dollars, the buyer’s yearly salary</li>
+										<li><b>Children:</b> the amount of children, if any, the buyer has</li>
+										<li><b>Education:</b> the farthest level of education that the buyer completed</li>
+										<li><b>Occupation:</b> the profession of the buyer</li>
+										<li><b>Home Owner:</b> whether the buyer owns their home</li>
+										<li><b>Cars:</b> the amount of cars, if any, the buyer has</li>
+										<li><b> Commute Distance::</b> in miles, the distance the buyer’s home and their work/school</li>
+										<li><b>Region:</b> the general area the buyer lives in, categorized as: Europe, Pacific, and North America</li>
+										<li><b>Age:</b> the age of the buyer</li>
+										<li><b>Purchased Bike:</b> whether or not the buyer bought the bicycle</li>
+									</ul>
+								
+
+                                    <h2>Approach</h2>
+									<p><b>Data Cleaning</b> - To prepare the data for analysis, 26 duplicates were found and removed from the dataset. Then, for the attributes of Marital Status and Gender, the values were expanded from abbreviations for better readability. Lastly, the ages were categorized into age brackets to better visualize the age groups buying (or not buying) bicycles. The following function was used to separate the ages into Adolescent, Middle Age, and Old:</p>
+									<pre><code>=IF([@Age] > 54, "Old", IF([@Age] >= 31, "Middle Age", IF([@Age] < 31, "Adolescent", "Invalid")))</code></pre>
+									
+									<p><b>Pivot Tables and Data Visualization</b> - Three pivot tables were created to understand the demographics of who and who did not end up buying a bicycle. The first pivot table describes the relationship between, average income, gender of potential buyers, and whether they bought a bicycle. This table was visualized as a bar graph for the reader to observe and compare (if any) differences in income between male and female buyers, as well as those who did and did not buy a bike. The second pivot table describes the relationship between the buyer’s commute distance and whether a buyer bought the bike. This was visualized as a line graph for the reader to observe any trends between the distance and any purchases. Lastly, the third pivot table describes the relationship between the age brackets and whether someone bought a bike. This was also visualized as a line graph for the reader to observe trends between age and a purchase decision.  All three graphs were added to the dashboard. </p>
+									<p><b>Slicers (Filters)</b> - To better understand the demographics visualized, four slicers were added to the dashboard. These slicers were based on the following attributes: marriage status, region, education, and cars.</p>
                                     
-                                    <h2>Acknowledgments</h2>
-                                    <p><i>none?</i></p>
+                                    <h2>Key Takeaways</h2>
+									<p>At a glance, we can make out the following observations:</p>
+									<ul>
+										<li>People (both males and females) who bought a bike have a higher average income than their respective counterparts who did not buy a bike.</li>
+										<li>Those who bought bicycles were mostly classified in the “Middle Age” age bracket.</li>
+										<li>Among those who bought bicycles, there were more people who bought bicycles that had a shorter commute distance than those who had a longer commute distance.</li>
+									</ul>
+									<p>When taking the filters in account, the following observations (among others) can also be made:</p>
+									<ul>
+										<li>In North America, married females who purchased a bike had a higher average income than their male counterparts.</li>
+										<li>Among the people whose farthest education was Bachelors or Graduate, people who did not buy bicycles had a higher average income than those who did. Among those whose farthest was High School, Partial College, or Partial High School, people who did buy a bicycle had the higher average income.</li>
+										<li>When looking at the visualization for customer age brackets, there were more people who bought a bike when they had 0 to 1 cars than people that had 2 to 4 cars.</li>
+									</ul>
 
                                     <h2>Dashboard</h2>
+									<p>Within the spreadsheet file, there are four sheets. The first sheet is the interactive dashboard with data visualizations and filters. The second sheet, titled “bike_buyers”, is the raw data. The third sheet, titled “Working Sheet”, is where the data was cleaned. Finally, the fourth sheet is contains the pivot tables used to create the visualizations.</p>
                                     <p>
                                     <iframe src="https://onedrive.live.com/embed?resid=12EBCDAAA8A19800%211492&authkey=!AI82USWrHoCgad0&em=2" width=100% height="600" frameborder="0" scrolling="no"></iframe>
                                     </p>
