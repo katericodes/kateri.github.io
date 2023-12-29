@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Coffee Sales</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+                                <header id="header">
+                                    <a href="index.html" class="logo"><strong>Kateri's </strong> Portfolio</a>
+                                    <ul class="icons">
+                                        <li><a href="https://www.linkedin.com/in/kbarano/" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+                                        <li><a href="https://github.com/katericodes" class="icon brands fa-github-alt"><span class="label">GitHub</span></a></li>
+                                    </ul>
+                                </header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>Coffee Sales</h1>
+									</header>
+
+                                    <div class="box">
+										<b>Contents</b>
+										<ul>
+											<li><a href="#intro">Introduction</a></li>
+											<li><a href="#approach">Approach</a></li>
+											<li><a href="#takeaways">Key Takeaways</a></li>
+											<li><a href="#dashboard">Dashboard</a></li>
+										</ul>
+                                    </div>
+
+                                    <h2 id="intro">Introduction</h2>
+                                    <p>
+                                        For many people, their daily routines include having a cup of coffee. In this project, we’ll be exploring data about coffee product sales to see if there are any trends that can be found and lead to actionable items for coffee businesses.
+                                    </p>
+
+                                    <h2>Content</h2>
+                                    <p>
+                                        The dataset contained three worksheets: one for the details of 1,000 coffee orders, one for the information of customers who bought the coffee product, and one for the information about the products themselves. For this project, I focused on the following attributes:
+                                    </p>
+                                    <ul>
+                                        <li><b>Quantity</b>: The quantity of the coffee product ordered.</li>
+                                        <li><b>Customer Name</b>: Name of the person who bough cofffee product(s).</li>
+                                        <li><b>Email</b>: Email, if any, of the customer.</li> 
+                                        <li><b>Country</b>: The customer's country of origin.</li> 
+                                        <li><b>Loyalty Card</b>: Whether the customer owns a loyalty card.</li> 
+                                        <li><b>Coffee Type</b>: The type or blend of coffee used for the product.</li> 
+                                        <li><b>Roast Type</b>: The roast level of how the coffee bean was prepared.</li> 
+                                        <li><b>Size</b>: The size of the coffee product.</li> 
+                                        <li><b>Unit Price</b>: The price of a single unit of the coffee product.</li> 
+									</ul>
+                                    <p>
+                                        More details about the worksheets along with the original dataset can be found on <a href="https://www.kaggle.com/datasets/saadharoon27/coffee-bean-sales-raw-dataset">Kaggle</a>.
+                                    </p>
+								
+
+                                    <h2 id="approach">Approach</h2>
+									<p>
+                                        <b>Data Cleaning and Wrangling</b> - Since the data was given as three different spreadsheets, they had to be combined into one sheet to be useable. Using the orders sheet as a foundation, I used xlookup to bring over the Customer Name, Email, Country, and Loyalty Card from the Customers sheet based on their Customer ID. Then, I used an index match formula to bring over the Coffee Type, Roast Type, Size, and Unit Price, form the Products sheet based on the Product ID. The Sales column was then calculated by the Quantity and Unit Price for each order. To finish up cleaning, I fixed the format of date and numerical formats, expanded any abbreviations into a more readable name, and tried to look for any duplicates to remove (which were none).
+                                   </p>
+									<p>
+                                        <b>Pivot Tables and Data Visualization</b> - To visualize the data, three main pivot tables were created. The first pivot table was the sales total for each coffee type over time. This would be visualized as a line graph to showcase, if any, trends over a period of time. The second pivot table was the total sales for each country. This would be visualized as a bar graph to allow the reader to compare how well the coffee product sold with respect to location. The last pivot table was the top five customers based on how much coffee products they bought (measured by the amount of money they spent). This would also be visualized as a bar graph for comparison. All three graphs were added to the dashboard.                                    </p>
+									<p>
+                                        <b>Interactive Dashboard</b> - To make the dashboard interactive and provide more insights, a timeline and slicers (or filters) were added. The timeline would allow the reader to select a specific period of time, in which the graphs would would update accordingly. This would especially be useful for the sales over time graph. Filters were added for the following attributes: Coffee Type, Roast Type, Size, and Loyalty Card. Selecting any combination of these filters and/or the timeline would update the graphs for better insights.
+                                    </p>
+                                    
+                                    <h2 id="takeaways">Key Takeaways</h2>
+									<p>The final dashboard can be used to reveal any trends in the data and help businesses move toward items to improve their sales. Some of the observations (and potential action items) I made while viewing the dashboard include the following:</p>
+									<ul>
+										<li>The United States appear to sell the most coffee across all Coffee and Roast types. Coffee companies can take this to focus on expanding their business within the United States, but it is recommended to have a further data investigation in case the data set is biased to have more orders from the United States over Ireland and the United Kingdom.</li>
+										<li>Among Coffee Types, Arabica sells the best in the United States, Liberica sells the best in Ireland, and Excelsa sells the best in the United Kingdom. This brings insight to a company on how they should manage their product inventory across these three countries.</li>
+                                        <li>The United States and United Kingdom made more sales from people without loyalty cards than from people with loyalty cards. The opposite was true for Ireland. This could lead a company to further look into how to make their loyalty card better in order to bring in money from those who have it. If I were to further look into the data with respect to the loyalty card, I would as questions such as “How many people actually have the card?” and “Which product brings in the most money from those with the card?”.</li>
+										
+									</ul>
+
+                                    <h2 id="dashboard">Dashboard</h2>
+									<p>Within the spreadsheet below, there are six sheets available for viewing. “Dashboard” contains data visualizations with interactive filters for analysis. “Working Sheet” is where the data was combined and cleaned in preparation for visualization. “Pivot Tables” is where pivot tables were created and used to make the visualizations. The sheets for “orders”, “customers”, and “products” provide the raw data for this project.</p>
+                                    <p>
+                                        <iframe src="https://onedrive.live.com/embed?resid=12EBCDAAA8A19800%211496&authkey=!APbbUH4YHIkrq_c&em=2" width=100% height="900" frameborder="0" scrolling="no"></iframe>
+                                    </p>
+								</section>
+
+						</div>
+					</div>
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
