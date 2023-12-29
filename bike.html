@@ -35,10 +35,20 @@
 										<h1>Bike Buyers</h1>
 									</header>
 
-                                    <h2>Context and Objectives</h2>
+									<div class="box">
+										<b>Contents</b>
+										<ul>
+											<li><a href="#context">Context and Objectives</a></li>
+											<li><a href="#approach">Approach</a></li>
+											<li><a href="#takeaways">Key Takeaways</a></li>
+											<li><a href="#dashboard">Dashboard</a></li>
+										</ul>
+										</div>
+
+                                    <h2 id="context">Context and Objectives</h2>
                                     <p>Riding a bicycle to school or work can provide many health, financial, and environmental benefits. The goal of this project is to understand the demographics behind who is (and is not) buying bicycles.</p>
 
-                                    <h2>Content</h2>
+                                    <h2 id="content">Content</h2>
                                     <p>For this project, I will be using a dataset (found on <a href="https://github.com/AlexTheAnalyst/Excel-Tutorial/blob/main/Data%20Cleaning%20Excel%20Tutorial.xlsx">GitHub</a>) that contains 1026 rows of potential bicycle buyers described by the following attributes:</p>
                                     <ul>
 										<li><b>ID:</b> unique identifier of the potential buyers</li>
@@ -57,14 +67,14 @@
 									</ul>
 								
 
-                                    <h2>Approach</h2>
+                                    <h2 id="approach">Approach</h2>
 									<p><b>Data Cleaning</b> - To prepare the data for analysis, 26 duplicates were found and removed from the dataset. Then, for the attributes of Marital Status and Gender, the values were expanded from abbreviations for better readability. Lastly, the ages were categorized into age brackets to better visualize the age groups buying (or not buying) bicycles. The following function was used to separate the ages into Adolescent, Middle Age, and Old:</p>
 									<pre><code>=IF([@Age] > 54, "Old", IF([@Age] >= 31, "Middle Age", IF([@Age] < 31, "Adolescent", "Invalid")))</code></pre>
 									
 									<p><b>Pivot Tables and Data Visualization</b> - Three pivot tables were created to understand the demographics of who and who did not end up buying a bicycle. The first pivot table describes the relationship between, average income, gender of potential buyers, and whether they bought a bicycle. This table was visualized as a bar graph for the reader to observe and compare (if any) differences in income between male and female buyers, as well as those who did and did not buy a bike. The second pivot table describes the relationship between the buyer’s commute distance and whether a buyer bought the bike. This was visualized as a line graph for the reader to observe any trends between the distance and any purchases. Lastly, the third pivot table describes the relationship between the age brackets and whether someone bought a bike. This was also visualized as a line graph for the reader to observe trends between age and a purchase decision.  All three graphs were added to the dashboard. </p>
 									<p><b>Slicers (Filters)</b> - To better understand the demographics visualized, four slicers were added to the dashboard. These slicers were based on the following attributes: marriage status, region, education, and cars.</p>
                                     
-                                    <h2>Key Takeaways</h2>
+                                    <h2 id="takeaways">Key Takeaways</h2>
 									<p>At a glance, we can make out the following observations:</p>
 									<ul>
 										<li>People (both males and females) who bought a bike have a higher average income than their respective counterparts who did not buy a bike.</li>
@@ -78,7 +88,7 @@
 										<li>When looking at the visualization for customer age brackets, there were more people who bought a bike when they had 0 to 1 cars than people that had 2 to 4 cars.</li>
 									</ul>
 
-                                    <h2>Dashboard</h2>
+                                    <h2 id="dashboard">Dashboard</h2>
 									<p>Within the spreadsheet file, there are four sheets. The first sheet is the interactive dashboard with data visualizations and filters. The second sheet, titled “bike_buyers”, is the raw data. The third sheet, titled “Working Sheet”, is where the data was cleaned. Finally, the fourth sheet is contains the pivot tables used to create the visualizations.</p>
                                     <p>
                                     <iframe src="https://onedrive.live.com/embed?resid=12EBCDAAA8A19800%211492&authkey=!AI82USWrHoCgad0&em=2" width=100% height="600" frameborder="0" scrolling="no"></iframe>
